@@ -11,7 +11,7 @@
             "homepage": "http://www.lixiaocheng.com"
         }
     ],
-    "autoload": {
-        "psr-4": {"Core\\": "src/Core"}
-    }
+	"autoload": {
+		"files": ["src/Core.php"]
+	}
 }

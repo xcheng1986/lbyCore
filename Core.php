@@ -9,7 +9,10 @@ class Core
 
 	public static function run()
 	{
-		//自动加载
+
+        define('CORE_PATH', __DIR__);
+
+        //自动加载
 		spl_autoload_register('self::autoLoad', true);
 
 		//加载配置文件及公用函数库
@@ -47,10 +50,11 @@ class Core
 	public static function autoLoad($class)
 	{
 		$classFIleName = str_replace('\\', '/', $class) . '.class.php';
-		if (isset(self::$classMap[$classFIleName]) || isset(self::$classMap[$classFIleName]))
-			return true;
-		$place = strpos($classFIleName, '/');
-		$name = strtolower(substr($classFIleName, 0, $place));
+		if (isset(self::$classMap[$classFIleName]) || isset(self::$classMap[$classFIleName])) {
+            return true;
+        }
+        $place = strpos($classFIleName, '/');
+        $name = strtolower(substr($classFIleName, 0, $place));
 		$file = '';
 		if ($name == 'core') {
 			$file = CORE_PATH . '/' . substr($classFIleName, $place);

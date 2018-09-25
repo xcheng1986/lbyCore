@@ -12,6 +12,6 @@
         }
     ],
 	"autoload": {
-		"files": ["src/Core.php"]
+        "psr-4": {"Core\\": "src/Core"}
 	}
 }

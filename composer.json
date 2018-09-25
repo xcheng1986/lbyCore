@@ -1,3 +1,17 @@
 {
-    "name": "xcheng1986/lbyCore"
+    "name": "xcheng1986/lbyCore",
+    "description": "liboyang photo Core",
+    "keywords": ["lbyCore"],
+    "homepage": "http://liboyang.net",
+    "type": "library",
+    "authors": [
+        {
+            "name": "lixiaocheng",
+            "email": "xchengli@126.com",
+            "homepage": "http://www.lixiaocheng.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Core\\": "src/Core"}
+    },
 }

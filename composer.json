@@ -1,9 +1,0 @@
-{
-    "name": "xcheng1986/lbyCore",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/xcheng1986/lbyCore.git"
-        }
-    ]
-}

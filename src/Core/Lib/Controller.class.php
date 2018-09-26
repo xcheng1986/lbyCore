@@ -16,10 +16,11 @@ class Controller
 	{
 		header('Content-type: application/json;charset=utf-8');
 		$arr = ['status' => $code, 'info' => $message, 'data' => $data];
-		if (!is_null($ext))
-			$arr['ext'] = $ext;
-		die(json_encode($arr));
-	}
+		if (!is_null($ext)) {
+            $arr['ext'] = $ext;
+        }
+        die(json_encode($arr));
+    }
 
 	/**
 	 * 显示模板
@@ -27,8 +28,7 @@ class Controller
 	 */
 	public function display($template = null)
 	{
-		$backtrace = debug_backtrace();
-		$template = APP_PATH . '/View/' . $template . '.html';
+        $template = APP_PATH . '/View/' . $template . '.html';
 		extract($this->assign);
 		if (!is_file($template)) {
 			echo $template;

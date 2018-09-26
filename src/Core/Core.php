@@ -32,6 +32,26 @@ class Core
     }
 
     /**
+     * 命令行下运行
+     */
+    public function runCli()
+    {
+
+        !defined('CORE_PATH') && define('CORE_PATH', __DIR__);
+
+        //自动加载
+        spl_autoload_register('self::autoLoad', true);
+
+        //加载配置文件及公用函数库
+        self::autoInclude();
+
+        //路由控制
+        $_SERVER['REQUEST_URI'] = $argv[2];
+        $_REQUEST = $argv[3] ? json_decode($argv[3], true) : [];
+        \Core\Lib\Route::controllerLoad();
+    }
+
+    /**
      * 加载配置文件及公用函数库
      */
     public static function autoInclude()

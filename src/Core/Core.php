@@ -36,7 +36,7 @@ class Core
      */
     public static function runCli()
     {
-
+        global $argv;
         !defined('CORE_PATH') && define('CORE_PATH', __DIR__);
 
         //自动加载
@@ -46,8 +46,8 @@ class Core
         self::autoInclude();
 
         //路由控制
-        $_SERVER['REQUEST_URI'] = isset($argv[2]) ? $argv[2] : '';
-        $param = isset($argv[3]) ? json_decode($argv[3], true) : [];
+        $param = [];
+        isset($argv[2]) && parse_str($argv[2], $param);
         \Core\Lib\Route::controllerLoad($param);
     }
 

@@ -12,17 +12,20 @@ class Route
     {
         global $argv;
         if (is_cli()) {
-            $query = isset($argv[1]) ? $argv[1] : '';
+            $query = isset($argv[1]) ? ltrim($argv[1], '/') : '';
         } else {
             $query = ltrim($_SERVER['REQUEST_URI'], '/');
         }
+
         $place = strpos($query, '?');
-        if ($place !== false)
+        if ($place !== false) {
             $query = substr($query, 0, $place);
+        }
 
         $query = str_replace('.html', '', strtolower($query)) ?: '';
         $default_controller = config('DEFAULT_CONTROLLER');
         $default_method = config('DEFAULT_ACTION');
+
 
         if ($query == '') {
             $class = $default_controller;
@@ -30,6 +33,7 @@ class Route
         } else {
             $query_real = preg_replace('/\/+/', '/', $query);
             $query_arr = explode('/', $query_real);
+
             if ($query_arr[0] == 'admin') {
                 $class = 'Admin/' . ucfirst(isset($query_arr[1]) ? $query_arr[1] : $default_controller);
                 $method = isset($query_arr[2]) ? $query_arr[2] : $default_method;
@@ -47,8 +51,12 @@ class Route
         }
 
         $class_path = '\App\Controller\\' . str_replace('/', '\\', $class);
-        $class = new $class_path;
-        $class->$method($param);
+        try {
+            $class = new $class_path;
+            $class->$method($param);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
 }

@@ -34,7 +34,7 @@ class Core
     /**
      * 命令行下运行
      */
-    public function runCli()
+    public static function runCli()
     {
 
         !defined('CORE_PATH') && define('CORE_PATH', __DIR__);
@@ -46,9 +46,9 @@ class Core
         self::autoInclude();
 
         //路由控制
-        $_SERVER['REQUEST_URI'] = $argv[2];
-        $_REQUEST = $argv[3] ? json_decode($argv[3], true) : [];
-        \Core\Lib\Route::controllerLoad();
+        $_SERVER['REQUEST_URI'] = isset($argv[2]) ? $argv[2] : '';
+        $param = isset($argv[3]) ? json_decode($argv[3], true) : [];
+        \Core\Lib\Route::controllerLoad($param);
     }
 
     /**

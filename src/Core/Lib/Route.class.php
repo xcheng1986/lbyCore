@@ -8,7 +8,7 @@ class Route
     /**
      * User Controller Auto Load
      */
-    public static function controllerLoad()
+    public static function controllerLoad($param = [])
     {
         $query = ltrim($_SERVER['REQUEST_URI'], '/');
         $place = strpos($query, '?');
@@ -42,7 +42,7 @@ class Route
 
         $class_path = '\App\Controller\\' . str_replace('/', '\\', $class);
         $class = new $class_path;
-        $class->$method();
+        $class->$method($param);
     }
 
 }

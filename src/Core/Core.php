@@ -10,7 +10,7 @@ class Core
     public static function run()
     {
 
-        define('CORE_PATH', __DIR__);
+        !defined('CORE_PATH') && define('CORE_PATH', __DIR__);
 
         //自动加载
         spl_autoload_register('self::autoLoad', true);

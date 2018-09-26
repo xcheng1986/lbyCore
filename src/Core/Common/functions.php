@@ -64,3 +64,12 @@ function cache($key, $value = null)
 {
 
 }
+
+/**
+ * is_cli
+ * @return type
+ */
+function is_cli()
+{
+    return preg_match("/cli/i", php_sapi_name()) ? true : false;
+}

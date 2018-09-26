@@ -10,7 +10,12 @@ class Route
      */
     public static function controllerLoad($param = [])
     {
-        $query = ltrim($_SERVER['REQUEST_URI'], '/');
+        global $argv;
+        if (is_cli()) {
+            $query = isset($argv[1]) ? $argv[1] : '';
+        } else {
+            $query = ltrim($_SERVER['REQUEST_URI'], '/');
+        }
         $place = strpos($query, '?');
         if ($place !== false)
             $query = substr($query, 0, $place);
@@ -37,8 +42,9 @@ class Route
             }
         }
         $file = APP_PATH . '/Controller/' . $class . '.class.php';
-        if (!is_file($file))
+        if (!is_file($file)) {
             die('file "' . $file . '" not found');
+        }
 
         $class_path = '\App\Controller\\' . str_replace('/', '\\', $class);
         $class = new $class_path;

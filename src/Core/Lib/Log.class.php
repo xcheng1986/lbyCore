@@ -16,4 +16,19 @@ class Log
 		file_put_contents($filename, "[" . date('Y-m-d H:i:s') . "][" . $level . "] $info\r\n", FILE_APPEND);
 	}
 
+    public static function error($msg)
+    {
+
+    }
+
+    public static function info($msg)
+    {
+
+    }
+
+    public static function debug($msg)
+    {
+
+    }
+
 }

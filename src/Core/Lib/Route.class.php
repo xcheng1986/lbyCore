@@ -22,35 +22,30 @@ class Route
             $query = substr($query, 0, $place);
         }
 
-        $query = str_replace('.html', '', strtolower($query)) ?: '';
+        $query = str_replace('.html', '', $query) ?: '';
         $default_controller = config('DEFAULT_CONTROLLER');
         $default_method = config('DEFAULT_ACTION');
 
 
-        if ($query == '') {
+        if ($query == '' || $query == '/') {
             $class = $default_controller;
             $method = $default_method;
         } else {
-            $query_real = preg_replace('/\/+/', '/', $query);
-            $query_arr = explode('/', $query_real);
-
-            if ($query_arr[0] == 'admin') {
-                $class = 'Admin/' . ucfirst(isset($query_arr[1]) ? $query_arr[1] : $default_controller);
-                $method = isset($query_arr[2]) ? $query_arr[2] : $default_method;
-            } else if ($query_arr[0] == 'command') {
-                $class = 'Command/' . ucfirst(isset($query_arr[1]) ? $query_arr[1] : $default_controller);
-                $method = isset($query_arr[2]) ? $query_arr[2] : $default_method;
-            } else {
-                $class = ucfirst($query_arr[0]);
-                $method = isset($query_arr[1]) ? $query_arr[1] : $default_method;
+            $query = preg_replace('/\/+/', '/', $query);
+            $place2 = strripos($query, '/');
+            if ($place2 === FALSE) {
+                $query = $query + '/' + $default_method;
             }
+            $class = substr($query, 0, $place2);
+            $method = substr($query, $place2 + 1, strlen($query) - $place2);
         }
-        $file = APP_PATH . '/Controller/' . $class . '.class.php';
+
+        $file = APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . $class . '.class.php';
         if (!is_file($file)) {
             die('file "' . $file . '" not found');
         }
 
-        $class_path = '\App\Controller\\' . str_replace('/', '\\', $class);
+        $class_path = '\App\Controller\\' . str_replace(DIRECTORY_SEPARATOR, '\\', $class);
         try {
             $class = new $class_path;
             $class->$method($param);

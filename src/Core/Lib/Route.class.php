@@ -40,7 +40,7 @@ class Route
             $method = substr($query, $place2 + 1, strlen($query) - $place2);
         }
 
-        $file = APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . str_repeat('/', DIRECTORY_SEPARATOR, $class) . '.class.php';
+        $file = APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $class) . '.class.php';
         if (!is_file($file)) {
             die('file "' . $file . '" not found');
         }

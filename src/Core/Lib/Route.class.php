@@ -45,7 +45,7 @@ class Route
             die('file "' . $file . '" not found');
         }
 
-        $class_path = '\App\Controller\\' . str_replace(DIRECTORY_SEPARATOR, '\\', $class);
+        $class_path = '\App\Controller\\' . str_replace('/', '\\', $class);
         try {
             $class = new $class_path;
             $class->$method($param);

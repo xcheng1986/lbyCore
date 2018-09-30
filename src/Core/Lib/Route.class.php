@@ -33,7 +33,11 @@ class Route
             $query = preg_replace('/\/+/', '/', $query);
             $place2 = strripos($query, '/');
             if ($place2 === FALSE) {
-                $query = $query . '/' . $default_method;
+                if (is_dir(APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . ucfirst($query))) {
+                    $query = $query . '/' . $default_controller . '/' . $default_method;
+                } else {
+                    $query = $query . '/' . $default_method;
+                }
             }
             $place2 = strripos($query, '/');
             

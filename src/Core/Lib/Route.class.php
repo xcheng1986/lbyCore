@@ -26,7 +26,6 @@ class Route
         $default_controller = config('DEFAULT_CONTROLLER');
         $default_method = config('DEFAULT_ACTION');
 
-
         if ($query == '' || $query == '/') {
             $class = $default_controller;
             $method = $default_method;
@@ -34,8 +33,10 @@ class Route
             $query = preg_replace('/\/+/', '/', $query);
             $place2 = strripos($query, '/');
             if ($place2 === FALSE) {
-                $query = $query + '/' + $default_method;
+                $query = $query . '/' . $default_method;
             }
+            $place2 = strripos($query, '/');
+            
             $class = substr($query, 0, $place2);
             $method = substr($query, $place2 + 1, strlen($query) - $place2);
         }

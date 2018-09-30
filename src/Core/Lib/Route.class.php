@@ -34,9 +34,9 @@ class Route
             $place2 = strripos($query, '/');
             if ($place2 === FALSE) {
                 if (is_dir(APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . ucfirst($query))) {
-                    $query = $query . '/' . $default_controller . '/' . $default_method;
+                    $query = ucfirst($query) . '/' . $default_controller . '/' . $default_method;
                 } else {
-                    $query = $query . '/' . $default_method;
+                    $query = ucfirst($query) . '/' . $default_method;
                 }
             }
             $place2 = strripos($query, '/');

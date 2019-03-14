@@ -30,7 +30,7 @@ class Route
             $class = $default_controller;
             $method = $default_method;
         } else {
-            $query = preg_replace('/\/+/', '/', $query);
+            $query = ucwords(preg_replace('/\/+/', '/', $query), '/');
             $place2 = strripos($query, '/');
             if ($place2 === FALSE) {
                 if (is_dir(APP_PATH . DIRECTORY_SEPARATOR . 'Controller' . DIRECTORY_SEPARATOR . ucfirst($query))) {
